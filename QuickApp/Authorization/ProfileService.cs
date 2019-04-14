@@ -15,6 +15,7 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Identity;
 using DAL.Core;
 using DAL.Models;
+using DAL.Models.Auth;
 
 namespace QuickApp.Authorization
 {

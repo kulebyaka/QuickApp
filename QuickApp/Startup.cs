@@ -26,6 +26,7 @@ using QuickApp.ViewModels;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
+using DAL.Models.Auth;
 using AppPermissions = DAL.Core.ApplicationPermissions;
 
 namespace QuickApp

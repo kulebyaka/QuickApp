@@ -4,12 +4,10 @@
 // =============================
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using DAL.Models.Interfaces;
 
-namespace DAL.Models
+namespace DAL.Models.BasePoco
 {
     public class AuditableEntity : IAuditableEntity
     {

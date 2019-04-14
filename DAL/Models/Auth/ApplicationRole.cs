@@ -3,14 +3,12 @@
 // www.ebenmonney.com/templates
 // =============================
 
-using DAL.Models.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DAL.Models.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
-namespace DAL.Models
+namespace DAL.Models.Auth
 {
     public class ApplicationRole : IdentityRole, IAuditableEntity
     {

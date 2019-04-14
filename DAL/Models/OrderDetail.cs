@@ -1,10 +1,4 @@
-﻿// =============================
-// Email: info@ebenmonney.com
-// www.ebenmonney.com/templates
-// =============================
-
-using System;
-using System.Linq;
+﻿using DAL.Models.BasePoco;
 
 namespace DAL.Models
 {

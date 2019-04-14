@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Core;
 using DAL.Core.Interfaces;
+using DAL.Models.Auth;
 
 namespace DAL
 {

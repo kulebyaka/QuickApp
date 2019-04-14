@@ -18,6 +18,7 @@ using QuickApp.Authorization;
 using QuickApp.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using DAL.Core;
+using DAL.Models.Auth;
 using IdentityServer4.AccessTokenValidation;
 
 namespace QuickApp.Controllers
