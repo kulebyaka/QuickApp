@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Utils.Metadata
+namespace Import.Metadata
 {
     public class EXTHHead : BaseHeader
     {

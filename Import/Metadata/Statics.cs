@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utils.Metadata
+namespace Import.Metadata
 {
     public static class Converter
     {

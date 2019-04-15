@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Utils.Metadata
+namespace Import.Metadata
 {
     public class EXTHRecord
     {

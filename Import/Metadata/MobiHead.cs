@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Utils.Metadata
+namespace Import.Metadata
 {
     public class MobiHead : BaseHeader
     {

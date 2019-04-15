@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Utils.Metadata
+namespace Import.Metadata
 {
     public class PalmDOCHead : BaseHeader
     {
