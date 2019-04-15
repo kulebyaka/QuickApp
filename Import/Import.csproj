@@ -9,4 +9,20 @@
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TestResources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestResources\Liubov%27 vo vriemia chumy - Gabriel%27 Garsiia Markies.mobi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestResources\My Clippings.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestResources\Namakonov_Krossfit-mozga-Kak-podgotovit-sebya-k-resheniyu-nestandartnyh-zadach.512615.fb2.mobi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

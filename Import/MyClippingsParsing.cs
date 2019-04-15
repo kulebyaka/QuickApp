@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using DAL.Models;
@@ -7,23 +9,44 @@ namespace Utils
 {
     public static class MyClippingsParsing
     {
-        //          To (Stephen King)
-        //          - Highlight on Page 451 | Loc. 6909  | Added on Monday, March 14, 2016, 09:15 AM
+        private const string CurrentCulture = "ru-RU"; //TODO: Read from smth
+        private const string AddedOnEn = "Added on ";
+        private const string AddedOnRu = "Добавлено: ";
+        private const string RuDateAndTimeDelimiter = " в ";
 
-        //          klepů
-        //          ==========
-        //          To (Stephen King)
-        //          - Highlight on Page 451 | Loc. 6913  | Added on Monday, March 14, 2016, 09:16 AM
-
-        //          váhavě
-        //          ==========
-
-        public static Bookmark GetBookmark(string myClippings)
+        public static List<BookmarkImport> GetBookmark(string myClippings)
         {
-            Regex regex = new Regex(@"(?<Title>.+)(?<Author>\(.+\))(\n|\r|\r\n)(.+)(\n|\r|\r\n)(\n|\r|\r\n)(?<Bookmark>[\s\S]*)");
-            //Regex(@"(?<Title>[a-zA-Z0-9_ ]*)(?<Author>\([a-zA-Z0-9_ ]*\))(\n|\r|\r\n)(.+)(\n|\r|\r\n)(\n|\r|\r\n)(?<Bookmark>.+)"); 
-            var match = regex.Match(myClippings);
-            return new Bookmark() {BookTitle = match.Groups["Title"].Value, Value = match.Groups["Bookmark"].Value};
+            var regex = new Regex(@"(?m)(?<Title>.+)(?<Author>\(.+\))(\n|\r|\r\n)(?<TypePage>.+?)\|(?<location>.+?)\|(?<Date>.+?(\n|\r|\r\n))(?<BookmarkValue>\n.*?\n)");
+            var matches = regex.Matches(myClippings);
+
+            var importBookmarks = new List<BookmarkImport>();
+            foreach (Match match in matches)
+            {
+                var dateAndTime = match.Groups["Date"].Value.Replace(AddedOnRu, "").Split(RuDateAndTimeDelimiter, 2);
+                importBookmarks.Add(
+                    new BookmarkImport()
+                    {
+                        Title = match.Groups["Title"].Value, 
+                        Author = match.Groups["Author"].Value,
+                        TypePage = match.Groups["TypePage"].Value,
+                        Date = DateTime.Parse(dateAndTime[0].Trim(), CultureInfo.GetCultureInfo(CurrentCulture)),
+                        BookmarkValue = match.Groups["BookmarkValue"].Value,
+                    }
+                );
+            }
+            return importBookmarks;
         }
     }
+
+
+    public class BookmarkImport
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string TypePage { get; set; }
+        public DateTime? Date { get; set; }
+        public string BookmarkValue { get; set; }
+    }
+    
 }
+

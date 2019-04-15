@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using DAL.Models;
+using Import.Metadata;
 using Utils;
-using Utils.Metadata;
 
 namespace Import
 {
@@ -14,18 +15,21 @@ namespace Import
 
         static void Main(string[] args)
         {
-            Console.WriteLine(GetMetadata());
-            //Console.WriteLine(GetHighlights());
+            var directoryPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "TestResources");
+            Console.WriteLine(GetMetadata(directoryPath));
+            Console.WriteLine(GetHighlights(directoryPath));
             Console.ReadLine();
 
             object o = Encoding.Unicode.CodePage; 
             Encoding enc = Encoding.GetEncoding(int.Parse(o.ToString()));
         }
 
-        private static string GetMetadata()
+        private static string GetMetadata(string directoryPath)
         {
-            MobiMetadata mobi = new MobiMetadata(@"C:\Users\Kirill\Downloads\Dikson_Plenennaya-Vselennaya-avtorskiy-sbornik-.392223.fb2.mobi");
+            
+            var x = Directory.GetFiles(directoryPath, "*.mobi");
 
+            MobiMetadata mobi = new MobiMetadata(x.First());
             string fileName = mobi.PDBHeader.Name;
             uint fileVersion = mobi.MobiHeader.FileVersion;
             string fullname = mobi.MobiHeader.FullName;
@@ -36,31 +40,13 @@ namespace Import
             return String.Format("Title = {0}; Author = {1}", fullname, authorName);
         }
 
-        private static string GetHighlights()
+        private static string GetHighlights(string directoryPath)
         {
-            var bookmarks = new List<Bookmark>();
-            StringBuilder clipping = new StringBuilder();
-            foreach (var line in File.ReadLines(@"C:\Users\Kirill\Downloads\My Clippings.txt"))
-            {
-                if (string.Equals(EndOfBookmark, line, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    bookmarks.Add(MyClippingsParsing.GetBookmark(clipping.ToString()));
-                    clipping.Clear();
-                }
-                else
-                {
-                    clipping.AppendLine(line);
-                }
+            var clipping = new StringBuilder();
+            var allText = File.ReadAllText(Path.Combine(directoryPath, "My Clippings.txt"));
+            var bookmarks = MyClippingsParsing.GetBookmark(allText);
 
-
-            }
-
-            var returnedString = new StringBuilder();
-            foreach (var bookmark in bookmarks)
-            {
-                returnedString.AppendLine(String.Format("Book = {0}; Bookmark = {1}", bookmark.BookTitle, bookmark.Value));
-            }
-            return returnedString.ToString();
+            return "";
         }
     }
 }
