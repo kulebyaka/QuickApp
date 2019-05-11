@@ -31,6 +31,7 @@ namespace Utils
                         TypePage = match.Groups["TypePage"].Value,
                         Date = DateTime.Parse(dateAndTime[0].Trim(), CultureInfo.GetCultureInfo(CurrentCulture)),
                         BookmarkValue = match.Groups["BookmarkValue"].Value,
+                        Location = match.Groups["location"].Value,
                     }
                 );
             }
@@ -46,6 +47,7 @@ namespace Utils
         public string TypePage { get; set; }
         public DateTime? Date { get; set; }
         public string BookmarkValue { get; set; }
+        public string Location { get; set; }
     }
     
 }

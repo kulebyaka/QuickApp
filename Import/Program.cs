@@ -15,7 +15,7 @@ namespace Import
 
         static void Main(string[] args)
         {
-            var directoryPath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "TestResources");
+            var directoryPath = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.ToString(), "TestResources");
             Console.WriteLine(GetMetadata(directoryPath));
             Console.WriteLine(GetHighlights(directoryPath));
             Console.ReadLine();
@@ -44,8 +44,19 @@ namespace Import
         {
             var clipping = new StringBuilder();
             var allText = File.ReadAllText(Path.Combine(directoryPath, "My Clippings.txt"));
-            var bookmarks = MyClippingsParsing.GetBookmark(allText);
+            var bookmarks = MyClippingsParsing.GetBookmark(allText).GroupBy(x => x.Title);
+            foreach (var group in bookmarks)
+            {
+                var x = new Book()
+                {
+                    Title = group.Key,
+                    Bookmarks = group.Select(a=>new Bookmark()
+                    {
+                        Value = a.BookmarkValue
+                    }).ToList()
+                };
 
+            }
             return "";
         }
     }

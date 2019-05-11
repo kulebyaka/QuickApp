@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using DAL.Models.BasePoco;
 
 namespace DAL.Models
 {
-    public class Book
+    public class Book : AuditableEntity
     {
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public string Title { get; set; }
+        public ICollection<Bookmark> Bookmarks { get; set; }
     }
 }
